@@ -5,6 +5,7 @@ from llm_document_parser.config import (
     OLLAMA_MODEL,
     LLM_PROMPT,
     TESSERACT_TESSDATA_LOCATION,
+    INPUT_PATH,
     OUTPUT_FOLDER,
     OUTPUT_FILE_NAME,
     EXPORT_TYPE
@@ -43,11 +44,8 @@ def save_results(export_type: str, output_file_name: str, json_data: str, output
 
 
 if __name__ == "__main__":
-    current_dir = Path(__file__).resolve().parent
-    source = current_dir / "test_data" / "test2.png"
-
     document_converter = load_ocr_model_from_config(OCR_MODEL)
-    conversion_result = image_to_text(document_converter, source)
+    conversion_result = image_to_text(document_converter, Path(INPUT_PATH))
 
     bank_statement = conversion_result.document.export_to_markdown()
     print(bank_statement)
