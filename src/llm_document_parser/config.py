@@ -19,6 +19,6 @@ LLM_PROMPT = """
 EXPORT_TYPE = "csv"
 
 # Can be a file or directory
-INPUT_PATH = "/home/david/Projects/school/capstone/llm-document-parser/src/llm_document_parser/test_data"
-OUTPUT_FOLDER = "/home/david/Desktop"
+INPUT_PATH = ""
+OUTPUT_FOLDER = ""
 OUTPUT_FILE_NAME = "output"
