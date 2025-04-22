@@ -11,6 +11,7 @@ from docling.pipeline.standard_pdf_pipeline import StandardPdfPipeline
 from docling.pipeline.simple_pipeline import SimplePipeline
 
 
+# TODO: REFACTOR LOAD OCR MODEL TO JUST EITHER USE SERVER MODELS OR MOBILE MODELS
 def load_rapid_ocr_model(det_model: str, rec_model: str, cls_model: str) -> DocumentConverter:
     print("Downloading RapidOCR models")
     download_path = snapshot_download(repo_id="SWHL/RapidOCR")
@@ -71,7 +72,9 @@ def load_ocr_mac_model() -> DocumentConverter:
     
     return doc_converter
 
-def load_tesseract_model() -> DocumentConverter:
+def load_tesseract_model(tessdata_path: str) -> DocumentConverter:
+    os.environ["TESSDATA_PREFIX"] = tessdata_path
+
     ocr_options = TesseractOcrOptions()
 
     pipeline_options = PdfPipelineOptions(
