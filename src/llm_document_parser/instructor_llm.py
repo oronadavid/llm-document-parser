@@ -1,19 +1,8 @@
-from typing import List, Literal
 import instructor
 from openai import OpenAI
-from pydantic import BaseModel
-from datetime import date
+from llm_document_parser.data_models import BankStatement
 
 import ollama
-
-class BankStatementEntry(BaseModel):
-    transaction_date: date | None
-    description: str | None
-    amount: float | None
-    transaction_type: Literal['deposit', 'withdrawal', None]
-
-class BankStatement(BaseModel):
-    transactions: List[BankStatementEntry]
 
 def pull_ollama_model(model: str):
     """
