@@ -10,6 +10,7 @@ from llm_document_parser.convert_doc_docling import (
     image_to_text
 )
 
+# Setup OCR model 
 def load_ocr_model_from_config(model_type: str):
     if model_type == "rapid":
         return load_rapid_ocr_model(
@@ -26,6 +27,7 @@ def load_ocr_model_from_config(model_type: str):
 
 document_converter = load_ocr_model_from_config(OCR_MODEL)
 
+# Define system prompt
 SYSTEM_PROMPT = (
     "Extract all transactions from the following statement. "
     "Each transaction must be returned as a JSON object with the fields: "
@@ -36,22 +38,22 @@ SYSTEM_PROMPT = (
 
 OLLAMA_MODEL = "llama3.2"
 
+# Full pipeline
 def run_pipeline(image_path):
+    # Step 1: OCR
     result = image_to_text(document_converter, Path(image_path))
     text_data = result.document.export_to_markdown()
+
+    # Step 2: LLM processing
     return extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)
 
+# Gradio interface
 demo = gr.Interface(
     fn=run_pipeline,
     inputs=gr.Image(type="filepath", label="Upload Bank Statement Image"),
     outputs=gr.Textbox(label="Extracted Transactions (JSON)"),
     title="Bank Statement Parser",
-    description="""This app extracts transaction data from a bank statement using OCR and a local LLM.
-    Both models are specified in the config.py file.
-    Default settings:
-    - OCR: tesseract
-    - LLM: llama3.2
-    """
+    description="This app extracts transaction data from a bank statement using OCR and a local LLM."
 )
 
 if __name__ == "__main__":
