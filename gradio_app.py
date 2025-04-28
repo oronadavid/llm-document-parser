@@ -1,6 +1,12 @@
 import gradio as gr
 from pathlib import Path
 
+import sys
+from pathlib import Path
+
+# Add the src/ directory to Python path
+sys.path.append(str(Path(__file__).resolve().parent / "src"))
+
 from config import OCR_MODEL
 from llm_document_parser.instructor_llm import extract_json_data_using_ollama_llm
 from llm_document_parser.convert_doc_docling import (
