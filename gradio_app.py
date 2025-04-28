@@ -17,6 +17,13 @@ from llm_document_parser.convert_doc_docling import (
 )
 
 def load_ocr_model_from_config(model_type: str):
+    """
+    Load the OCR model based on the configuration.
+    Args:
+        model_type (str): The type of OCR model to load.
+    Returns:
+        DocumentConverter: The loaded OCR model.
+    """
     if model_type == "rapid":
         return load_rapid_ocr_model(
             "PP-OCRv4/ch_PP-OCRv4_det_server_infer.onnx",
@@ -43,6 +50,13 @@ SYSTEM_PROMPT = (
 OLLAMA_MODEL = "llama3.2"
 
 def run_pipeline(image_path):
+    """
+    Run the OCR and LLM pipeline to extract transaction data from a bank statement image.
+    Args:
+        image_path (str): Path to the bank statement image.
+    Returns:
+        str: Extracted transaction data in JSON format.
+    """
     result = image_to_text(document_converter, Path(image_path))
     text_data = result.document.export_to_markdown()
     return extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)

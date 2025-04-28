@@ -13,6 +13,15 @@ from docling.pipeline.simple_pipeline import SimplePipeline
 
 # TODO: REFACTOR LOAD OCR MODEL TO JUST EITHER USE SERVER MODELS OR MOBILE MODELS
 def load_rapid_ocr_model(det_model: str, rec_model: str, cls_model: str) -> DocumentConverter:
+    """
+    Load the RapidOCR model from Hugging Face Hub.
+    Args:
+        det_model (str): Path to the detection model.
+        rec_model (str): Path to the recognition model.
+        cls_model (str): Path to the classification model.
+    Returns:
+        DocumentConverter: The loaded RapidOCR model.
+    """
     print("Downloading RapidOCR models")
     download_path = snapshot_download(repo_id="SWHL/RapidOCR")
 
@@ -47,6 +56,11 @@ def load_rapid_ocr_model(det_model: str, rec_model: str, cls_model: str) -> Docu
     return doc_converter
 
 def load_ocr_mac_model() -> DocumentConverter:
+    """
+    Load the OCR Mac model.
+    Returns:
+        DocumentConverter: The loaded OCR Mac model.
+    """
     ocr_options = OcrMacOptions(
         framework='vision'
     )
@@ -73,6 +87,13 @@ def load_ocr_mac_model() -> DocumentConverter:
     return doc_converter
 
 def load_tesseract_model(tessdata_path: str) -> DocumentConverter:
+    """
+    Load the Tesseract OCR model. 
+    Args:
+        tessdata_path (str): Path to the Tesseract data directory.
+    Returns:
+        DocumentConverter: The loaded Tesseract OCR model.
+    """
     os.environ["TESSDATA_PREFIX"] = tessdata_path
 
     ocr_options = TesseractOcrOptions()
@@ -99,6 +120,11 @@ def load_tesseract_model(tessdata_path: str) -> DocumentConverter:
     return doc_converter
 
 def load_easy_ocr_model() -> DocumentConverter:
+    """
+    Load the EasyOCR model.
+    Returns:
+        DocumentConverter: The loaded EasyOCR model.
+    """
     ocr_options = EasyOcrOptions()
 
     pipeline_options = PdfPipelineOptions(
@@ -122,5 +148,13 @@ def load_easy_ocr_model() -> DocumentConverter:
     return doc_converter
 
 def image_to_text(document_converter: DocumentConverter, file_path: Path) -> ConversionResult:
+    """
+    Convert an image to text using the specified document converter.
+    Args:
+        document_converter (DocumentConverter): The document converter to use.
+        file_path (Path): Path to the image file.
+    Returns:
+        ConversionResult: The result of the conversion.
+    """
     conv_results = document_converter.convert(file_path)
     return conv_results
