@@ -9,7 +9,10 @@ def pull_ollama_model(model: str):
     Pull a model from ollama if it is not already downloaded
     """
     for downloaded_model in ollama.list()["models"]:
+        print(type(downloaded_model))
+        print(f"CHECKING MODEL: {downloaded_model}")
         if downloaded_model == model:
+            print(f"FOUND MODEL: {downloaded_model}")
             return
     
     print(f"Downloading {model} model...")

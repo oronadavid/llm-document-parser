@@ -58,7 +58,7 @@ def load_ocr_mac_model() -> DocumentConverter:
     doc_converter = DocumentConverter(
         allowed_formats=[
             InputFormat.PDF,
-            InputFormat.IMAGE
+            InputFormat.IMAGE,
         ],
         format_options={
             InputFormat.PDF: PdfFormatOption(
