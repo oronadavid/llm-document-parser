@@ -1,6 +1,7 @@
 import instructor
 from openai import OpenAI
-from llm_document_parser.data_models import BankStatement
+from pydantic import BaseModel
+from typing import Type
 
 import ollama
 
@@ -8,14 +9,20 @@ def pull_ollama_model(model: str):
     """
     Pull a model from ollama if it is not already downloaded
     """
+    if not model.__contains__(":"):
+        model += ":latest"
+
+    print(f"Checking if model {model} is installed...")
     for downloaded_model in ollama.list()["models"]:
-        if downloaded_model == model:
+        if downloaded_model['model']== model:
+            print(f"Model {downloaded_model['model']} is installed")
             return
     
+    print(f"Model {model} is not installed")
     print(f"Downloading {model} model...")
     ollama.pull(model)
 
-def extract_json_data_using_ollama_llm(prompt: str, text_data: str, ollama_model: str) -> str:
+def extract_json_data_using_ollama_llm(prompt: str, text_data: str, ollama_model: str, response_model: Type[BaseModel]) -> str:
     """
     Pass prompt and data into an ollama LLM using instructor
     """
@@ -41,7 +48,7 @@ def extract_json_data_using_ollama_llm(prompt: str, text_data: str, ollama_model
                 'content': text_data
             },
         ],
-        response_model=BankStatement,
+        response_model=response_model,
         max_retries=3
     )
 
