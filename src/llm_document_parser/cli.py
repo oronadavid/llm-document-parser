@@ -1,5 +1,5 @@
 from pathlib import Path
-from llm_document_parser.export_data import export_as_csv
+from llm_document_parser.export_data import export_as_csv, convert_json_to_df, export_as_json
 from llm_document_parser.config import (
     OCR_MODEL,
     OLLAMA_MODEL,
@@ -8,7 +8,8 @@ from llm_document_parser.config import (
     INPUT_PATH,
     OUTPUT_FOLDER,
     OUTPUT_FILE_NAME,
-    EXPORT_TYPE
+    EXPORT_TYPE,
+    RESPONSE_MODEL
 )
 
 from llm_document_parser.instructor_llm import extract_json_data_using_ollama_llm
@@ -39,24 +40,28 @@ def load_ocr_model_from_config(model_type: str):
 
 
 def save_results(export_type: str, output_file_name: str, json_data: str, output_folder: str):
+    df = convert_json_to_df(json_data)
     if export_type == "csv":
-        export_as_csv(json_data=json_data,output_folder=output_folder, output_file_name=output_file_name)
+        export_as_csv(df=df, output_folder=output_folder, output_file_name=output_file_name)
+    if export_type == "json":
+        export_as_json(json_data=json_data, output_folder=output_folder, output_file_name=output_file_name)
 
 
 if __name__ == "__main__":
     document_converter = load_ocr_model_from_config(OCR_MODEL)
     conversion_result = image_to_text(document_converter, Path(INPUT_PATH))
 
-    bank_statement = conversion_result.document.export_to_markdown()
-    print(bank_statement)
+    ocr_text_data = conversion_result.document.export_to_text()
+    print("Extracted OCR text:")
+    print(ocr_text_data)
 
     json_data = extract_json_data_using_ollama_llm(
         prompt=LLM_PROMPT,
-        text_data=bank_statement,
-        ollama_model=OLLAMA_MODEL
+        text_data=ocr_text_data,
+        ollama_model=OLLAMA_MODEL,
+        response_model=RESPONSE_MODEL
     )
 
     print(json_data)
     save_results(export_type=EXPORT_TYPE,output_file_name=OUTPUT_FILE_NAME, json_data=json_data, output_folder=OUTPUT_FOLDER)
-
 
