@@ -7,7 +7,12 @@ from pathlib import Path
 # Add the src/ directory to Python path
 sys.path.append(str(Path(__file__).resolve().parent / "src"))
 
-from config import OCR_MODEL
+from llm_document_parser.config import (
+    OCR_MODEL,
+    LLM_PROMPT,
+    OLLAMA_MODEL,
+    RESPONSE_MODEL
+)
 from llm_document_parser.instructor_llm import extract_json_data_using_ollama_llm
 from llm_document_parser.convert_doc_docling import (
     load_rapid_ocr_model,
@@ -32,31 +37,21 @@ def load_ocr_model_from_config(model_type: str):
 
 document_converter = load_ocr_model_from_config(OCR_MODEL)
 
-SYSTEM_PROMPT = (
-    "Extract all transactions from the following statement. "
-    "Each transaction must be returned as a JSON object with the fields: "
-    "transaction_date (YYYY-MM-DD), description, amount, and transaction_type "
-    "('deposit' or 'withdrawal'). All of these must be returned as a list of "
-    "JSON objects under a key called 'transactions'."
-)
-
-OLLAMA_MODEL = "llama3.2"
-
 def run_pipeline(image_path):
     result = image_to_text(document_converter, Path(image_path))
     text_data = result.document.export_to_markdown()
-    return extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)
+    return extract_json_data_using_ollama_llm(prompt=LLM_PROMPT, text_data=text_data, ollama_model=OLLAMA_MODEL, response_model=RESPONSE_MODEL)
 
 demo = gr.Interface(
     fn=run_pipeline,
     inputs=gr.Image(type="filepath", label="Upload Bank Statement Image"),
     outputs=gr.Textbox(label="Extracted Transactions (JSON)"),
     title="Bank Statement Parser",
-    description="""This app extracts transaction data from a bank statement using OCR and a local LLM.
+    description=f"""This app extracts transaction data from a bank statement using OCR and a local LLM.
     Both models are specified in the config.py file.
-    Default settings:
-    - OCR: tesseract
-    - LLM: llama3.2
+    Current settings:
+    - OCR: {OCR_MODEL}
+    - LLM: {OLLAMA_MODEL}
     """
 )
 
