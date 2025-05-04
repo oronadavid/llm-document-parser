@@ -22,6 +22,13 @@ from llm_document_parser.convert_doc_docling import (
 )
 
 def load_ocr_model_from_config(model_type: str):
+    """
+    Load the OCR model based on the configuration.
+    Args:
+        model_type (str): The type of OCR model to load.
+    Returns:
+        object: The loaded OCR model.
+    """
     if model_type == "rapid":
         # TODO: REFACTOR LOAD OCR MODEL TO JUST EITHER USE SERVER MODELS OR MOBILE MODELS
         return load_rapid_ocr_model(
@@ -40,6 +47,14 @@ def load_ocr_model_from_config(model_type: str):
 
 
 def save_results(export_type: str, output_file_name: str, json_data: str, output_folder: str):
+    """
+    Save the results in the specified format. 
+    Args:
+        export_type (str): The type of export (e.g., "csv").
+        output_file_name (str): The name of the output file.
+        json_data (str): The JSON data to save.
+        output_folder (str): The folder to save the output file.
+    """
     df = convert_json_to_df(json_data)
     if export_type == "csv":
         export_as_csv(df=df, output_folder=output_folder, output_file_name=output_file_name)

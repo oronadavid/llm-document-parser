@@ -4,7 +4,7 @@ from datetime import date
 from typing import List
 
 # Options: "rapid", "easy", "ocrmac", "tesseract"
-OCR_MODEL = "rapid"
+OCR_MODEL = "ocrmac"
 
 # Must be set when using the tesseract OCR model
 # Linux: "/usr/share/tesseract-ocr/4.00/tessdata"
