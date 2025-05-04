@@ -7,7 +7,12 @@ import pandas as pd
 # Add src/ to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from llm_document_parser.config import OCR_MODEL, OLLAMA_MODEL
+from llm_document_parser.config import (
+    OCR_MODEL,
+    LLM_PROMPT,
+    OLLAMA_MODEL,
+    RESPONSE_MODEL
+)
 from llm_document_parser.instructor_llm import extract_json_data_using_ollama_llm
 from llm_document_parser.convert_doc_docling import (
     load_rapid_ocr_model,
@@ -35,21 +40,16 @@ def load_ocr_model_from_config(model_type: str):
 
 document_converter = load_ocr_model_from_config(OCR_MODEL)
 
-# System prompt for LLM
-SYSTEM_PROMPT = (
-    "Extract all transactions from the following statement. "
-    "Each transaction must be returned as a JSON object with the fields: "
-    "transaction_date (YYYY-MM-DD), description, amount, and transaction_type "
-    "('deposit' or 'withdrawal'). All of these must be returned as a list of "
-    "JSON objects under a key called 'transactions'."
-)
-
 # Full processing pipeline
 def run_pipeline(image_path):
     result = image_to_text(document_converter, Path(image_path))
     text_data = result.document.export_to_markdown()
-
-    llm_result = extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)
+    llm_result = extract_json_data_using_ollama_llm(
+        prompt=LLM_PROMPT,
+        text_data=text_data,
+        ollama_model=OLLAMA_MODEL,
+        response_model=RESPONSE_MODEL
+    )
 
     # Try parsing the JSON output to display it as a CSV-style DataFrame
     try:
@@ -68,7 +68,7 @@ demo = gr.Interface(
     outputs=gr.Textbox(label="Extracted Transactions (CSV)"),
     title="Bank Statement Parser",
     description=f"""This app extracts transaction data from a bank statement using OCR and a local LLM.
-    
+
 OCR Model: `{OCR_MODEL}`  
 LLM Model: `{OLLAMA_MODEL}`  
 Results are returned in CSV format.
