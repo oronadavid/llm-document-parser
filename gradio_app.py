@@ -1,13 +1,13 @@
 import gradio as gr
 from pathlib import Path
-
 import sys
-from pathlib import Path
+import os
+import pandas as pd
 
-# Add the src/ directory to Python path
-sys.path.append(str(Path(__file__).resolve().parent / "src"))
+# Add src/ to Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from config import OCR_MODEL
+from llm_document_parser.config import OCR_MODEL, OLLAMA_MODEL
 from llm_document_parser.instructor_llm import extract_json_data_using_ollama_llm
 from llm_document_parser.convert_doc_docling import (
     load_rapid_ocr_model,
@@ -16,14 +16,10 @@ from llm_document_parser.convert_doc_docling import (
     image_to_text
 )
 
+print("RUNNING gradio_app.py FROM:", __file__)
+
+# Load OCR model based on config
 def load_ocr_model_from_config(model_type: str):
-    """
-    Load the OCR model based on the configuration.
-    Args:
-        model_type (str): The type of OCR model to load.
-    Returns:
-        DocumentConverter: The loaded OCR model.
-    """
     if model_type == "rapid":
         return load_rapid_ocr_model(
             "PP-OCRv4/ch_PP-OCRv4_det_server_infer.onnx",
@@ -39,6 +35,7 @@ def load_ocr_model_from_config(model_type: str):
 
 document_converter = load_ocr_model_from_config(OCR_MODEL)
 
+# System prompt for LLM
 SYSTEM_PROMPT = (
     "Extract all transactions from the following statement. "
     "Each transaction must be returned as a JSON object with the fields: "
@@ -47,31 +44,35 @@ SYSTEM_PROMPT = (
     "JSON objects under a key called 'transactions'."
 )
 
-OLLAMA_MODEL = "llama3.2"
-
+# Full processing pipeline
 def run_pipeline(image_path):
-    """
-    Run the OCR and LLM pipeline to extract transaction data from a bank statement image.
-    Args:
-        image_path (str): Path to the bank statement image.
-    Returns:
-        str: Extracted transaction data in JSON format.
-    """
     result = image_to_text(document_converter, Path(image_path))
     text_data = result.document.export_to_markdown()
-    return extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)
 
+    llm_result = extract_json_data_using_ollama_llm(SYSTEM_PROMPT, text_data, OLLAMA_MODEL)
+
+    # Try parsing the JSON output to display it as a CSV-style DataFrame
+    try:
+        import json
+        parsed = json.loads(llm_result)
+        transactions = parsed.get("transactions", [])
+        df = pd.DataFrame(transactions)
+        return df.to_csv(index=False)
+    except Exception as e:
+        return f"Failed to format output: {e}\nRaw output:\n{llm_result}"
+
+# Gradio interface
 demo = gr.Interface(
     fn=run_pipeline,
     inputs=gr.Image(type="filepath", label="Upload Bank Statement Image"),
-    outputs=gr.Textbox(label="Extracted Transactions (JSON)"),
+    outputs=gr.Textbox(label="Extracted Transactions (CSV)"),
     title="Bank Statement Parser",
-    description="""This app extracts transaction data from a bank statement using OCR and a local LLM.
-    Both models are specified in the config.py file.
-    Default settings:
-    - OCR: tesseract
-    - LLM: llama3.2
-    """
+    description=f"""This app extracts transaction data from a bank statement using OCR and a local LLM.
+    
+OCR Model: `{OCR_MODEL}`  
+LLM Model: `{OLLAMA_MODEL}`  
+Results are returned in CSV format.
+"""
 )
 
 if __name__ == "__main__":

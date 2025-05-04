@@ -3,6 +3,13 @@ import pandas as pd
 from pathlib import Path
 
 def export_as_csv(json_data: str, output_folder: str, output_file_name: str):
+    """
+    Export JSON data to CSV format.
+    Args:
+        json_data (str): JSON data to be exported.
+        output_folder (str): Path to the output folder.
+        output_file_name (str): Name of the output file.
+    """
     data = pd.read_json(StringIO(json_data))
     df = pd.DataFrame(data)
 
