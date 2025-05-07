@@ -26,8 +26,6 @@ def extract_json_data_using_ollama_llm(prompt: str, text_data: str, ollama_model
     """
     Pass prompt and data into an ollama LLM using instructor
     """
-    pull_ollama_model(ollama_model)
-
     client = instructor.from_openai(
         OpenAI(
             base_url="http://localhost:11434/v1",
