@@ -4,7 +4,7 @@ from datetime import date
 from typing import List
 
 # Options: "rapid", "easy", "ocrmac", "tesseract"
-OCR_MODEL = "rapid"
+OCR_MODEL = "easy"
 
 # Must be set when using the tesseract OCR model
 # Linux: "/usr/share/tesseract-ocr/4.00/tessdata"
@@ -12,7 +12,7 @@ OCR_MODEL = "rapid"
 # Mac: "/usr/local/share/tessdata" or "/opt/homebrew/share/tessdata"
 TESSERACT_TESSDATA_LOCATION = "/usr/share/tesseract-ocr/4.00/tessdata"
 
-OLLAMA_MODEL = "dolphin3"
+OLLAMA_MODEL = "llama3:instruct"
 
 LLM_PROMPT = """
         Extract all transactions from the following statement. Each transaction must be returned as a JSON object with the fields: transaction_date (YYYY-MM-DD), description, amount, and transaction_type ('deposit' or 'withdrawal'). All of these must be returned as a list of JSON objects under a key called 'transactions'. Here is an example:
@@ -27,11 +27,11 @@ LLM_PROMPT = """
 """
 
 # Options: "csv", "json", "excel"
-EXPORT_TYPE = "json"
+EXPORT_TYPE = "csv"
 
 # Can be a file or directory
-INPUT_PATH = ""
-OUTPUT_FOLDER = ""
+INPUT_PATH = "/home/david/Projects/school/capstone/llm-document-parser/src/llm_document_parser/test_data/"
+OUTPUT_FOLDER = "/home/david/Desktop/"
 OUTPUT_FILE_NAME = "output"
 
 # Define Pydantic response models for instructor:
