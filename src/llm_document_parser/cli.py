@@ -86,14 +86,12 @@ if __name__ == "__main__":
 
     df = pd.DataFrame()
     if Path(INPUT_PATH).is_dir():
-        print("DIR!")
         json_data_objects = list()
         for file in Path(INPUT_PATH).iterdir():
             json_data = process_file(file, document_converter)
             json_data_objects.append(json_data)
             df = combine_json_data_into_df(json_data_objects)
     else:
-        print("FILE!")
         json_data = process_file(Path(INPUT_PATH), document_converter)
         df = convert_json_to_df(json_data)
 

@@ -12,7 +12,6 @@ def pull_ollama_model(model: str):
     if not model.__contains__(":"):
         model += ":latest"
 
-    print(f"Checking if model {model} is installed...")
     for downloaded_model in ollama.list()["models"]:
         if downloaded_model['model']== model:
             print(f"Model {downloaded_model['model']} is installed")

@@ -30,7 +30,7 @@ def combine_json_data_into_df(json_data_objects: List[str]) -> pd.DataFrame:
 
     return pd.concat(json_dfs)
 
-def export_as_csv(df: pd.DataFrame, output_folder: str, output_file_name: str):
+def export_as_csv(df: pd.DataFrame, output_folder: str, output_file_name: str) -> str:
     """
     Save a DataFrame as a CSV file, avoiding overwriting by incrementing filenames.
     """
@@ -48,9 +48,10 @@ def export_as_csv(df: pd.DataFrame, output_folder: str, output_file_name: str):
 
     df.to_csv(full_output_path, index=False)
     print(f"Saved CSV to {full_output_path}")
+    return df.to_csv(path_or_buf=None, index=False)
 
 
-def export_as_json(df: pd.DataFrame, output_folder: str, output_file_name: str):
+def export_as_json(df: pd.DataFrame, output_folder: str, output_file_name: str) -> str:
     """
     Save raw JSON string to a file, avoiding overwriting by incrementing filenames.
     """
@@ -68,3 +69,4 @@ def export_as_json(df: pd.DataFrame, output_folder: str, output_file_name: str):
 
     df.to_json(full_output_path, orient='records')
     print(f"Saved JSON to {full_output_path}")
+    return df.to_json(orient='records') or ""
