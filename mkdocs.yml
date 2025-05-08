@@ -2,6 +2,9 @@ site_name: Guidance Docs
 repo_url: https://github.com/mozilla-ai/blueprint-template
 repo_name: blueprint-template
 
+watch:
+  - src
+
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
@@ -43,9 +46,11 @@ markdown_extensions:
       alternate_style: true
 
 plugins:
-- search
-- mkdocstrings:
-    handlers:
-      python:
-        options:
-          show_root_heading: true
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["src"]
+          options:
+            show_root_heading: true
+

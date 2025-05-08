@@ -1,27 +1,27 @@
-# **Step-by-Step Guide: How this Blueprint Works**
-
 
 ---
 
-## **Overview**
+### 📄 `docs/step-by-step-guide.md`
 
+```markdown
+# Step-by-Step Guide
 
----
+This guide walks through how the document parsing pipeline works internally.
 
-## **Step 1**
+## 1. Image Input
 
+- Users upload scanned or digital document images through the Gradio UI.
 
-## **Step 2**
+## 2. OCR Model
 
+- Image is passed to an OCR model (Docling, Tesseract, or PP-OCRv4).
+- Output is raw unstructured text.
 
-## **Step 3**
+## 3. LLM Inference
 
+- Text is sent to an instructor-tuned LLM via `extract_json_data_using_ollama_llm()`.
+- The LLM parses and returns structured JSON.
 
+## 4. Export
 
-## 🎨 **Customizing the Blueprint**
-
-To better understand how you can tailor this Blueprint to suit your specific needs, please visit the **[Customization Guide](customization.md)**.
-
-## 🤝 **Contributing to the Blueprint**
-
-Want to help improve or extend this Blueprint? Check out the **[Future Features & Contributions Guide](future-features-contributions.md)** to see how you can contribute your ideas, code, or feedback to make this Blueprint even better!
+- JSON is optionally saved as `.json` or converted to `.csv` using `export_data.py` utilities.
