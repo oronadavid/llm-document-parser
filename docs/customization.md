@@ -1,22 +1,23 @@
-# 🎨 **Customization Guide**
+# Customization Guide
 
-This Blueprint is designed to be flexible and easily adaptable to your specific needs. This guide will walk you through some key areas you can customize to make the Blueprint your own.
+Modify and tailor the blueprint to your specific needs.
 
----
+## Swap OCR Models
 
-## 🧠 **Changing the Model**
+In `convert_doc_docling.py`, choose one of:
 
+- `load_rapid_ocr_model()`
+- `load_easy_ocr_model()`
+- `load_ocr_mac_model()`
 
+## Use a Different LLM
 
-## 📝 **Modifying the system Prompt**
+In `instructor_llm.py`:
 
+- Change the system prompt in `config.py`
+- Use a different model with Ollama (e.g., `phi`, `llama3`, `dolphin3`)
 
+## Adjust Output
 
-## 💡 Other Customization Ideas
-
-- other ideas..
-
-
-## 🤝 **Contributing to the Blueprint**
-
-Want to help improve or extend this Blueprint? Check out the **[Future Features & Contributions Guide](future-features-contributions.md)** to see how you can contribute your ideas, code, or feedback to make this Blueprint even better!
+- Modify the output schema returned by the LLM
+- Customize `export_as_csv()` or `convert_json_to_df()` to fit your format
