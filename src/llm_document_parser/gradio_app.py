@@ -125,17 +125,21 @@ with gr.Blocks() as demo:
     gr.Markdown(f"""
     # LLM Document Parser
 
-    This app extracts structured data from a document using OCR and a local LLM.
+    This app extracts structured data from a document using OCR and a local LLM.\n
+    Selected OCR model: `{config.OCR_MODEL}`\n
+    Selected LLM model: `{config.OLLAMA_MODEL}`\n
+    Export format: `{config.EXPORT_TYPE}`\n
+    Response Model: `{config.RESPONSE_MODEL.__name__}`
     """)
     
 
     file_input = gr.File(file_types=["image", ".pdf"], file_count="multiple", label="Upload Document(s) (Image/PDF)")
 
     run_button = gr.Button("Parse Documents")
-    output_text = gr.Textbox(label="Extracted Data")
+    output_text = gr.JSON(label="Extracted Data")
     run_button.click(fn=run_full_pipeline, inputs=file_input, outputs=output_text)
 
-
+    ''' 
     gr.Markdown("""# Config
     To update the config, make changes, then click "Update Config" below
     """)
@@ -145,6 +149,7 @@ with gr.Blocks() as demo:
 
     demo.load(fn=load_config, outputs=config_editor)
     save_config_button.click(fn=save_config, inputs=config_editor, outputs=status)
+    '''
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True)

@@ -3,14 +3,20 @@ requires = ["setuptools>=48", "setuptools_scm[toml]>=6.3.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "blueprint"
+name = "llm-document-parser-blueprint"
 readme = "README.md"
 license = {text = "Apache-2.0"}
 requires-python = ">=3.10"
 dynamic = ["version"]
 dependencies = [
   "loguru",
-  "streamlit",
+  "gradio",
+  "docling",
+  "instructor",
+  "ollama",
+  "pandas",
+  "onnxruntime",
+  "pillow",
 ]
 
 [project.optional-dependencies]

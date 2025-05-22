@@ -27,7 +27,7 @@ LLM_PROMPT = """
 """
 
 # Options: "csv", "json", "excel"
-EXPORT_TYPE = "csv"
+EXPORT_TYPE = "json"
 
 # Can be a file or directory
 INPUT_PATH = "/home/david/Projects/school/capstone/llm-document-parser/src/llm_document_parser/test_data/"
