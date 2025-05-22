@@ -326,9 +326,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#option-1-local-setup-recommended" class="md-nav__link">
+  <a href="#prepare-the-project" class="md-nav__link">
     <span class="md-ellipsis">
-      🔧 Option 1: Local Setup (Recommended)
+      Prepare the Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-tesseractocr-optional-if-using-tesseract-for-ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install TesseractOCR (optional - if using Tesseract for OCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install TesseractOCR (optional - if using Tesseract for OCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      MacOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Data Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphical-interface-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical Interface App
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Interface
     </span>
   </a>
   
@@ -457,9 +526,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#option-1-local-setup-recommended" class="md-nav__link">
+  <a href="#prepare-the-project" class="md-nav__link">
     <span class="md-ellipsis">
-      🔧 Option 1: Local Setup (Recommended)
+      Prepare the Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-tesseractocr-optional-if-using-tesseract-for-ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install TesseractOCR (optional - if using Tesseract for OCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install TesseractOCR (optional - if using Tesseract for OCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      MacOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Data Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphical-interface-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical Interface App
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Interface
     </span>
   </a>
   
@@ -484,20 +622,43 @@
   
 
 
-<h1 id="getting-started">🚀 Getting Started</h1>
-<p>Get started with this Blueprint using one of the two options below, depending on whether you want to install locally or test remotely.</p>
-<hr />
-<h2 id="option-1-local-setup-recommended">🔧 Option 1: Local Setup (Recommended)</h2>
-<p>Set up the pipeline locally to run offline and keep data secure.</p>
-<p>```bash</p>
-<h1 id="clone-the-repo-and-move-into-it">Clone the repo and move into it</h1>
-<p>git clone https://github.com/your-username/llm-document-parser.git
-cd llm-document-parser</p>
-<h1 id="create-a-virtual-environment">Create a virtual environment</h1>
-<p>python3 -m venv venv
-source venv/bin/activate  # On Windows, use venv\Scripts\activate</p>
-<h1 id="start-the-gradio-app">Start the Gradio app</h1>
-<p>python gradio_app.py</p>
+<h1 id="getting-started">Getting Started</h1>
+<h2 id="prepare-the-project">Prepare the Project</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Clone the repo</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/llm-document-parser.git
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>llm-document-parser
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Create a virtual environment</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># On Windows, use venv\Scripts\activate</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Edit the config with your desired settings and data model(s) using a code editor</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>vim<span class="w"> </span>src/config.py
+</span></code></pre></div>
+<h2 id="install-tesseractocr-optional-if-using-tesseract-for-ocr">Install TesseractOCR (optional - if using Tesseract for OCR)</h2>
+<p><a href="https://tesseract-ocr.github.io/tessdoc/Installation.html">Tesseract Installation Documentation</a></p>
+<h3 id="ubuntu">Ubuntu</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tesseract-ocr
+</span></code></pre></div>
+<h3 id="macos">MacOS</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># MacPorts</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>port<span class="w"> </span>install<span class="w"> </span>tesseract
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Homebrew</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>brew<span class="w"> </span>install<span class="w"> </span>tesseract
+</span></code></pre></div>
+<h3 id="windows">Windows</h3>
+<p><a href="https://github.com/UB-Mannheim/tesseract/wiki">Download the installer</a></p>
+<p>MOVE ^</p>
+<h2 id="creating-a-data-model">Creating a Data Model</h2>
+<p>Docling uses Pydantic to force the LLM output to conform to an exact data model. In order to </p>
+<h2 id="graphical-interface-app">Graphical Interface App</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>llm_document_parser.gradio_app
+</span></code></pre></div>
+<h2 id="command-line-interface">Command Line Interface</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>-m<span class="w"> </span>llm_document_parser.cli
+</span></code></pre></div>
 
 
 
