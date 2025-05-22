@@ -40,7 +40,6 @@ The example use case, parsing transaction data from bank statements, demonstrate
 ## 🚀 Quick Start
 ### Setup
 
-#### Prepare the Project
 ```bash
 # Clone the repo
 git clone https://github.com/your-username/llm-document-parser.git
