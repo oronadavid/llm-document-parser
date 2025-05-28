@@ -29,7 +29,7 @@
 
 </div>
 
-# LLM Document Parser: A Blueprint for extracting sturctured data from documents
+# LLM Document Parser: A Blueprint for extracting structured data from documents
 
 This Blueprint provides a locally runnable pipeline for parsing structured data from scanned or digital documents using open-source OCR and LLMs. It takes in one or more documents in image and/or PDF formats as input and returns a single structured object with fields parsed from the documents. By defining a prompt and data model, the Blueprint will know how what fields to parse and what they should look like.
 
